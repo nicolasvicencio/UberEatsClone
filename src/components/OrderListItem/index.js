@@ -1,16 +1,18 @@
-import { StyleSheet, Text, View , Image} from 'react-native'
+import { StyleSheet, Text, View , Image, Pressable} from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 export default function OrderListItem({ order }) {
+	const navigation = useNavigation()
 	return (
-		<View style={styles.row}>
+		<Pressable onPress={() => navigation.navigate('Order', {id: order.id})} style={styles.row}>
 			<Image source={{ uri: order.Restaurant.image }} style={styles.image} />
 			<View>
 				<Text style={styles.title}>{order.Restaurant.name}</Text>
 				<Text style={styles.subTitle}>3 items &#8226; $38.45</Text>
 				<Text style={styles.subTitle}>2 days ago &#8226; {order.status}</Text>
 			</View>
-		</View>
+		</Pressable>
 	)
 }
 

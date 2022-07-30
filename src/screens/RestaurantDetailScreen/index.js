@@ -5,12 +5,13 @@ import styles from './styles'
 import { AntDesign } from '@expo/vector-icons';
 import Header from './Header';
 import DishListItem from '../../components/DishListItem';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 const restaurant = restaurants[0]
 
 export default function RestaurantDetailsScreen() {
 	const route = useRoute()
+	const navigation = useNavigation()
 	const id = route.params?.id
 	console.log(id)
 
@@ -20,9 +21,10 @@ export default function RestaurantDetailsScreen() {
 			<FlatList
 				ListHeaderComponent={() => <Header restaurant={restaurant} />}
 				data={restaurant.dishes}
+				keyExtractor={(item) => item.name}
 				renderItem={({ item }) => <DishListItem dishes={item} />}
 			/>
-			<AntDesign name="arrowleft" size={24} color="black" style={styles.iconContainer} />
+			<AntDesign name="arrowleft" size={24} color="black" style={styles.iconContainer} onPress={() => navigation.goBack()} />
 		</View>
 	)
 }
